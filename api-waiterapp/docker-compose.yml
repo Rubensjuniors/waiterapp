@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  api-waiterapp:
+    image: mongo:latest
+    container_name: waiterapp-mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=waiterapp
+      - MONGO_INITDB_ROOT_PASSWORD=waiterapp
+      - MONGO_INITDB_DATABASE=waiterapp
+    volumes:
+      - waiterapp_data:/data/db
+
+volumes:
+  waiterapp_data:

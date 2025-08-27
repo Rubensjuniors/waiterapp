@@ -3,15 +3,13 @@
   "_version": "22.0.0",
 
   "compilerOptions": {
-    "lib": ["es2024"],
-    "module": "nodenext",
+    "lib": ["es2023"],
+    "module": "node16",
     "target": "es2022",
-    "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"]
     },
-
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,

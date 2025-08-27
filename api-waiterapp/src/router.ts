@@ -3,7 +3,7 @@ import { categoryUseCases } from './app/useCases/category'
 import { productUseCases } from './app/useCases/product'
 import { orderUseCases } from './app/useCases/order'
 import multer from 'multer'
-import path from 'node:path'
+import path from "node:path"
 
 const router = Router()
 
