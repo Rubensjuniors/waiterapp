@@ -11,6 +11,5 @@ export const Category = model(
       type: String,
       required: true,
     },
-  })
+  }),
 )
-

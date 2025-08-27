@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+
 import { Category } from '../../models/Category'
 
 class CategoryUseCases {
@@ -7,7 +8,7 @@ class CategoryUseCases {
       const categories = await Category.find()
 
       res.json(categories)
-    } catch (error) {
+    } catch {
       res.status(500).json({ error: 'Internal server error' })
     }
   }
@@ -32,7 +33,7 @@ class CategoryUseCases {
       })
 
       res.status(201).json(category)
-    } catch (error) {
+    } catch {
       res.status(500).json({ error: 'Internal server error' })
     }
   }
@@ -48,7 +49,7 @@ class CategoryUseCases {
       await Category.findByIdAndDelete(categoryId)
 
       res.status(204).send()
-    } catch (error) {
+    } catch {
       res.status(500).json({ error: 'Internal server error' })
     }
   }

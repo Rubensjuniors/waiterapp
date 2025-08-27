@@ -20,20 +20,21 @@ export const Product = model(
       required: true,
     },
     ingredients: {
-      type: [{
-        name: {
-          type: String,
+      type: [
+        {
+          name: {
+            type: String,
+          },
+          icon: {
+            type: String,
+          },
         },
-        icon: {
-          type: String,
-        },
-      }],
+      ],
     },
     category: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'Category',
-    }
-  })
+    },
+  }),
 )
-

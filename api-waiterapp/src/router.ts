@@ -1,9 +1,11 @@
-import { Router, RequestHandler } from 'express'
-import { categoryUseCases } from './app/useCases/category'
-import { productUseCases } from './app/useCases/product'
-import { orderUseCases } from './app/useCases/order'
+import path from 'node:path'
+
+import { RequestHandler, Router } from 'express'
 import multer from 'multer'
-import path from "node:path"
+
+import { categoryUseCases } from './app/useCases/category'
+import { orderUseCases } from './app/useCases/order'
+import { productUseCases } from './app/useCases/product'
 
 const router = Router()
 

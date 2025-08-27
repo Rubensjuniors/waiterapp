@@ -11,5 +11,5 @@ export const AdminUser = model(
       type: String,
       required: true,
     },
-  })
+  }),
 )

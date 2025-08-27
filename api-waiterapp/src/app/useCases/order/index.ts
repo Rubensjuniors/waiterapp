@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+
 import { Order } from '../../models/Order'
 
 class OrderUseCases {
@@ -9,19 +10,21 @@ class OrderUseCases {
       const order = await Order.create({ table, products })
 
       res.status(201).json(order)
-    } catch (error) {
+    } catch {
       res.status(500).json({ error: 'Internal server error' })
     }
   }
 
   async list(_req: Request, res: Response) {
     try {
-      const orders = await Order.find().sort({
-        createdAt: -1
-      }).populate('products.product')
+      const orders = await Order.find()
+        .sort({
+          createdAt: -1,
+        })
+        .populate('products.product')
 
       res.json(orders)
-    } catch (error) {
+    } catch {
       res.status(500).json({ error: 'Internal server error' })
     }
   }
@@ -32,13 +35,15 @@ class OrderUseCases {
       const { status } = req.body
 
       if (!['WAITING', 'IN_PRODUCTION', 'DONE'].includes(status)) {
-        return res.status(400).json({ error: `Status should be one of these: 'WAITING', 'IN_PRODUCTION', 'DONE'` })
+        return res
+          .status(400)
+          .json({ error: 'Status should be one of these: "WAITING", "IN_PRODUCTION", "DONE"' })
       }
 
       await Order.findByIdAndUpdate(orderId, { status })
 
       res.status(204).send()
-    } catch (error) {
+    } catch {
       res.status(500).json({ error: 'Internal server error' })
     }
   }
@@ -49,7 +54,7 @@ class OrderUseCases {
       await Order.findByIdAndDelete(orderId)
 
       res.status(204).send()
-    } catch (error) {
+    } catch {
       res.status(500).json({ error: 'Internal server error' })
     }
   }

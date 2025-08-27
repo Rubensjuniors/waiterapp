@@ -1,5 +1,6 @@
-import { Product } from '../../models/Product'
 import { Request, Response } from 'express'
+
+import { Product } from '../../models/Product'
 
 class ProductUseCases {
   async list(_req: Request, res: Response) {
@@ -7,7 +8,7 @@ class ProductUseCases {
       const products = await Product.find()
 
       res.json(products)
-    } catch (error) {
+    } catch {
       res.status(500).json({ error: 'Internal server error' })
     }
   }
@@ -23,13 +24,13 @@ class ProductUseCases {
         image,
         category,
         ingredients: ingredients ? JSON.parse(ingredients) : [],
-        imagePath
+        imagePath,
       }
 
       const product = await Product.create(productBody)
 
       res.status(201).json(product)
-    } catch (error) {
+    } catch {
       res.status(500).json({ error: 'Internal server error' })
     }
   }
@@ -40,7 +41,7 @@ class ProductUseCases {
       const product = await Product.findOne({ category: categoryId })
 
       res.json(product)
-    } catch (error) {
+    } catch {
       res.status(500).json({ error: 'Internal server error' })
     }
   }
@@ -51,7 +52,7 @@ class ProductUseCases {
       await Product.findByIdAndDelete(productId)
 
       res.status(204).send()
-    } catch (error) {
+    } catch {
       res.status(500).json({ error: 'Internal server error' })
     }
   }
