@@ -3,13 +3,12 @@ import path from 'node:path'
 import express from 'express'
 import mongoose from 'mongoose'
 
-import { env } from './app/env'
+import { env } from './env'
 import router from './router'
 
 mongoose
   .connect(env.DATABASE_URL)
   .then(() => {
-    console.log('Connected to MongoDB')
     const app = express()
 
     const PORT = process.env.PORT || 4001

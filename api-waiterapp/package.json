@@ -11,7 +11,8 @@
     "test:watch": "vitest",
     "docker:start": "docker start mongo",
     "docker:download": "docker run --name mongo -p 27017:27017 -d mongo",
-    "docker:compose": "docker compose up -d"
+    "docker:compose": "docker compose up -d",
+    "create-super-admin": "tsx src/scripts/createSuperAdmin.ts"
   },
   "keywords": [],
   "author": "",
