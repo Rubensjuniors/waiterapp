@@ -6,7 +6,7 @@ export enum UserRole {
 export interface IUser {
   id: string
   name: string
-  urlCoverPhoto: string
+  urlCoverPhoto?: string
   email: string
   passwordHash: string
   role: UserRole

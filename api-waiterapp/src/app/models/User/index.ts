@@ -9,7 +9,7 @@ const userSchema = new Schema({
   },
   urlCoverPhoto: {
     type: String,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
