@@ -1,5 +1,7 @@
 import { model, Schema } from 'mongoose'
 
+import { OrderStatus } from './types'
+
 export const Order = model(
   'Order',
   new Schema({
@@ -9,8 +11,8 @@ export const Order = model(
     },
     status: {
       type: String,
-      enum: ['WAITING', 'IN_PRODUCTION', 'DONE'],
-      default: 'WAITING',
+      enum: OrderStatus,
+      default: OrderStatus.WAITING,
     },
     createdAt: {
       type: Date,
