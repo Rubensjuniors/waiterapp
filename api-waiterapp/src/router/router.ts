@@ -1,12 +1,18 @@
 // import path from 'node:path'
 
-import { RequestHandler, Router } from 'express'
-// import multer from 'multer'
+import { Router } from 'express'
 
+import { makeSignUpController } from '@/app/controllers/SignUpController/makeSignUpController'
+
+// import multer from 'multer'
+import { routeAdapter } from './routeAdapter'
 // import { orderUseCases } from './app/useCases/order'
 // import { productUseCases } from './app/useCases/product'
 
 const router = Router()
+
+// Rotas de autenticação
+router.post('/auth/signup', routeAdapter(makeSignUpController()))
 
 // const upload = multer({
 //   storage: multer.diskStorage({

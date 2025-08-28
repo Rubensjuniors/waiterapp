@@ -4,7 +4,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 
 import { env } from './env'
-import router from './router'
+import router from './router/router'
 
 mongoose
   .connect(env.DATABASE_URL)
