@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 import { EmailAlreadyRegisteredError } from '@/app/errors/EmailAlreadyRegisteredError'
-import { IController, IRequst, IResponse } from '@/app/interfaces/controllers'
+import { IController, IRequest, IResponse } from '@/app/interfaces/controllers'
 import { UserRole } from '@/app/models/User/types'
 import { makeUserUseCase } from '@/app/useCases/UserUseCase/makeUser'
 
@@ -14,14 +14,17 @@ const signUpSchema = z.object({
 })
 
 export class SignUpController implements IController {
-  async handle({ body }: IRequst): Promise<IResponse> {
+  async handle({ body, file }: IRequest): Promise<IResponse> {
     try {
       const validatedData = signUpSchema.parse(body)
 
       const userUseCase = makeUserUseCase()
 
+      const urlCoverPhoto = file ? `/uploads/${file.filename}` : validatedData.urlCoverPhoto
+
       const result = await userUseCase.registerUser({
         ...validatedData,
+        urlCoverPhoto,
         createdAt: new Date(),
       })
 

@@ -1,10 +1,11 @@
 import { IncomingHttpHeaders } from 'node:http'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface IRequst {
+export interface IRequest {
   body?: Record<string, any>
   headers?: IncomingHttpHeaders
   accountId?: string | undefined
+  file?: Express.Multer.File
 }
 
 export interface IResponse {
@@ -13,5 +14,5 @@ export interface IResponse {
 }
 
 export interface IController {
-  handle(request: IRequst): Promise<IResponse>
+  handle(request: IRequest): Promise<IResponse>
 }

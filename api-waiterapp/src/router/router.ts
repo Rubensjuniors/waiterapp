@@ -1,29 +1,32 @@
-// import path from 'node:path'
+import path from 'node:path'
 
 import { Router } from 'express'
+import multer from 'multer'
 
 import { makeSignUpController } from '@/app/controllers/SignUpController/makeSignUpController'
 
-// import multer from 'multer'
 import { routeAdapter } from './routeAdapter'
 // import { orderUseCases } from './app/useCases/order'
 // import { productUseCases } from './app/useCases/product'
 
 const router = Router()
 
-// Rotas de autenticação
-router.post('/auth/signup', routeAdapter(makeSignUpController()))
+// upload de imagens
+const upload = multer({
+  storage: multer.diskStorage({
+    destination(_req, _file, callback) {
+      callback(null, path.resolve(__dirname, '..', '..', 'uploads'))
+    },
+    filename(_req, file, callback) {
+      callback(null, `${Date.now()}-${file.originalname}`)
+    },
+  }),
+})
 
-// const upload = multer({
-//   storage: multer.diskStorage({
-//     destination(_req, _file, callback) {
-//       callback(null, path.resolve(__dirname, '..', 'uploads'))
-//     },
-//     filename(_req, file, callback) {
-//       callback(null, `${Date.now()}-${file.originalname}`)
-//     },
-//   }),
-// })
+router.post('/auth/signup', upload.single('urlCoverPhoto'), routeAdapter(makeSignUpController()))
+
+// router.post('/auth/signin', '/falta fazer')
+// router.post('rota de deletar um user')
 
 // //list all categories
 // router.get('/categories', categoryUseCases.list)
