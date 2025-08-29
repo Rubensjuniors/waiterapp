@@ -13,6 +13,6 @@ export type IOutput = Omit<IUser, 'passwordHash'>
 export interface IUserRepository {
   create(data: ICreateUser): Promise<IOutput>
   update({ id, data }: IUpdateUser): Promise<IOutput | null>
-  findByEmail(email: string): Promise<IOutput | null>
+  findByEmail(email: string): Promise<IUser | null>
   delete(id: string): Promise<null>
 }

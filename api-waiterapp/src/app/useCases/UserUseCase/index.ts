@@ -1,12 +1,37 @@
-import { hash as bcryptjsHash } from 'bcryptjs'
+import { compare as bcryptjsCompare, hash as bcryptjsHash } from 'bcryptjs'
 
 import { EmailAlreadyRegisteredError } from '@/app/errors/EmailAlreadyRegisteredError'
+import { InvalidCredentialsError } from '@/app/errors/InvalidCredentialsError'
 import { IUserRepository } from '@/app/repositories/UserRepository/types'
 
-import { RegisterUseCaseRequest, RegisterUseCaseResponse, UpdateUserUseCase } from './types'
+import {
+  AuthenticateRequest,
+  AuthenticateResponse,
+  RegisterUseCaseRequest,
+  RegisterUseCaseResponse,
+  UpdateUserUseCase,
+} from './types'
 
 export class UserUseCase {
   constructor(private readonly usersRepository: IUserRepository) {}
+
+  async authenticate({ email, password }: AuthenticateRequest): Promise<AuthenticateResponse> {
+    const user = await this.usersRepository.findByEmail(email)
+
+    if (!user) {
+      throw new InvalidCredentialsError()
+    }
+
+    const doesPasswordMatches = await bcryptjsCompare(password, user.passwordHash)
+
+    if (!doesPasswordMatches) {
+      throw new InvalidCredentialsError()
+    }
+
+    return {
+      user,
+    }
+  }
 
   async registerUser({
     email,

@@ -12,3 +12,12 @@ export interface UpdateUserUseCase {
   id: string
   data: Partial<Pick<IUser, 'name' | 'urlCoverPhoto'>>
 }
+
+export interface AuthenticateRequest {
+  email: string
+  password: string
+}
+
+export interface AuthenticateResponse {
+  user: IUser
+}

@@ -1,5 +1,6 @@
 import path from 'node:path'
 
+import cookieParser from 'cookie-parser'
 import express from 'express'
 import mongoose from 'mongoose'
 
@@ -14,6 +15,7 @@ mongoose
     const PORT = process.env.PORT || 4001
 
     app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')))
+    app.use(cookieParser())
     app.use(express.json())
     app.use(router)
 

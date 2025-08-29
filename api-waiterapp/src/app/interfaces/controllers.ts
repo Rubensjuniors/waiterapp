@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IncomingHttpHeaders } from 'node:http'
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { CookieOptions } from 'express'
+
 export interface IRequest {
-  body?: Record<string, any>
-  headers?: IncomingHttpHeaders
+  body: Record<string, any>
+  headers: IncomingHttpHeaders
   accountId?: string | undefined
   file?: Express.Multer.File
+  setCookie: (name: string, val: string, options?: CookieOptions) => void
+  cookies: Record<string, string>
 }
 
 export interface IResponse {

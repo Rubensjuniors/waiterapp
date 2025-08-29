@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { CookieOptions, Request, Response } from 'express'
 
 import { IController } from '@/app/interfaces/controllers'
 
@@ -9,6 +9,15 @@ export function routeAdapter(controller: IController) {
     const { statusCode, body } = await controller.handle({
       body: req.body,
       file,
+      headers: req.headers,
+      cookies: req.cookies,
+      setCookie: (name: string, val: string, options?: CookieOptions) => {
+        if (options) {
+          res.cookie(name, val, options)
+        } else {
+          res.cookie(name, val)
+        }
+      },
     })
 
     res.status(statusCode).json(body)
