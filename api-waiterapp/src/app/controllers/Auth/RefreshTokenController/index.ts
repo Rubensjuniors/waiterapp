@@ -29,6 +29,7 @@ export class RefreshTokenController implements IController {
         id: string
         name: string
         email: string
+        role: string
         createdAt: string
         urlCoverPhoto?: string
         iat?: number
@@ -40,6 +41,7 @@ export class RefreshTokenController implements IController {
         id: decoded.id,
         name: decoded.name,
         email: decoded.email,
+        role: decoded.role,
         createdAt: decoded.createdAt,
         urlCoverPhoto: decoded.urlCoverPhoto ?? '',
       }

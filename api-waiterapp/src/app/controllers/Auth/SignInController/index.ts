@@ -26,7 +26,7 @@ export class SignInController implements IController {
       const userUseCase = makeUserUseCase()
 
       const {
-        user: { email: userEmail, id, name, urlCoverPhoto, createdAt },
+        user: { email: userEmail, id, name, urlCoverPhoto, createdAt, role },
       } = await userUseCase.authenticate({ email, password })
 
       const userData = {
@@ -35,6 +35,7 @@ export class SignInController implements IController {
         email: userEmail,
         createdAt,
         urlCoverPhoto: urlCoverPhoto ?? '',
+        role,
       }
 
       const accessToken = sign(

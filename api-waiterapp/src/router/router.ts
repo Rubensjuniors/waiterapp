@@ -10,6 +10,7 @@ import { makeSignUpController } from '@/app/controllers/Auth/SignUpController/ma
 import { makeCreateCategoryController } from '@/app/controllers/Category/CreateCategoryController/makeCreateCategoryController'
 import { makeDeleteCategoryController } from '@/app/controllers/Category/DeleteCategoryController/makeDeleteCategoryController'
 import { makeListCategoriesController } from '@/app/controllers/Category/ListCategoriesController/makeListCategoriesController'
+import { authMiddleware, restaurantAuthMiddleware } from '@/app/middlewares'
 
 import { routeAdapter } from './routeAdapter'
 // import { orderUseCases } from './app/useCases/order'
@@ -36,8 +37,8 @@ router.post('/auth/logout', routeAdapter(makeLogoutController()))
 
 // Category routes
 router.get('/categories', routeAdapter(makeListCategoriesController()))
-router.post('/categories', routeAdapter(makeCreateCategoryController()))
-router.delete('/categories', routeAdapter(makeDeleteCategoryController()))
+router.post('/categories', restaurantAuthMiddleware, routeAdapter(makeCreateCategoryController()))
+router.delete('/categories', restaurantAuthMiddleware, routeAdapter(makeDeleteCategoryController()))
 
 // //list all products
 // router.get('/products', productUseCases.list)
