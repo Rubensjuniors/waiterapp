@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import path from 'node:path'
 
 import { Router } from 'express'
