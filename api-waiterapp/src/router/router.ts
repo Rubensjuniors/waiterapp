@@ -3,6 +3,7 @@ import path from 'node:path'
 import { Router } from 'express'
 import multer from 'multer'
 
+import { makeLogoutController } from '@/app/controllers/Auth/LogoutController/makeLogoutController'
 import { makeRefreshController } from '@/app/controllers/Auth/RefreshTokenController/makeRefreshController'
 import { makeSignInController } from '@/app/controllers/Auth/SignInController/makeSignInController'
 import { makeSignUpController } from '@/app/controllers/Auth/SignUpController/makeSignUpController'
@@ -28,8 +29,7 @@ const upload = multer({
 router.post('/auth/signup', upload.single('urlCoverPhoto'), routeAdapter(makeSignUpController()))
 router.post('/auth/signin', routeAdapter(makeSignInController()))
 router.patch('/auth/refresh', routeAdapter(makeRefreshController()))
-
-// router.post('rota de deletar um user')
+router.post('/auth/logout', routeAdapter(makeLogoutController()))
 
 // //list all categories
 // router.get('/categories', categoryUseCases.list)
