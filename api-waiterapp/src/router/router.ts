@@ -10,11 +10,17 @@ import { makeSignUpController } from '@/app/controllers/Auth/SignUpController/ma
 import { makeCreateCategoryController } from '@/app/controllers/Category/CreateCategoryController/makeCreateCategoryController'
 import { makeDeleteCategoryController } from '@/app/controllers/Category/DeleteCategoryController/makeDeleteCategoryController'
 import { makeListCategoriesController } from '@/app/controllers/Category/ListCategoriesController/makeListCategoriesController'
-import { authMiddleware, restaurantAuthMiddleware } from '@/app/middlewares'
+import { makeCreateOrderController } from '@/app/controllers/Order/CreateOrderController/makeCreateOrderController'
+import { makeDeleteOrderController } from '@/app/controllers/Order/DeleteOrderController/makeDeleteOrderController'
+import { makeListOrdersController } from '@/app/controllers/Order/ListOrdersController/makeListOrdersController'
+import { makeUpdateOrderStatusController } from '@/app/controllers/Order/UpdateOrderStatusController/makeUpdateOrderStatusController'
+import { makeCreateProductController } from '@/app/controllers/Product/CreateProductController/makeCreateProductController'
+import { makeDeleteProductController } from '@/app/controllers/Product/DeleteProductController/makeDeleteProductController'
+import { makeListProductsByCategoryController } from '@/app/controllers/Product/ListProductsByCategoryController/makeListProductsByCategoryController'
+import { makeListProductsController } from '@/app/controllers/Product/ListProductsController/makeListProductsController'
+import { restaurantAuthMiddleware } from '@/app/middlewares'
 
 import { routeAdapter } from './routeAdapter'
-// import { orderUseCases } from './app/useCases/order'
-// import { productUseCases } from './app/useCases/product'
 
 const router = Router()
 
@@ -40,28 +46,21 @@ router.get('/categories', routeAdapter(makeListCategoriesController()))
 router.post('/categories', restaurantAuthMiddleware, routeAdapter(makeCreateCategoryController()))
 router.delete('/categories', restaurantAuthMiddleware, routeAdapter(makeDeleteCategoryController()))
 
-// //list all products
-// router.get('/products', productUseCases.list)
+// Product routes
+router.get('/products', routeAdapter(makeListProductsController()))
+router.post(
+  '/products',
+  upload.single('image'),
+  restaurantAuthMiddleware,
+  routeAdapter(makeCreateProductController()),
+)
+router.get('/categories/:categoryId/products', routeAdapter(makeListProductsByCategoryController()))
+router.delete('/products/:productId', restaurantAuthMiddleware, routeAdapter(makeDeleteProductController()))
 
-// //create product
-// router.post('/products', upload.single('image'), productUseCases.create)
-
-// // get product by category
-// router.get('/categories/:categoryId/products', productUseCases.listByCategory)
-
-// // list orders
-// router.get('/orders', orderUseCases.list)
-
-// // create order
-// router.post('/orders', orderUseCases.create)
-
-// // change order status
-// router.patch('/orders/:orderId', orderUseCases.updateStatus as RequestHandler)
-
-// // delete/cancel order
-// router.delete('/orders/:orderId', orderUseCases.delete)
-
-// // delete product
-// router.delete('/products/:productId', productUseCases.delete)
+// Order routes
+router.get('/orders', routeAdapter(makeListOrdersController()))
+router.post('/orders', routeAdapter(makeCreateOrderController()))
+router.patch('/orders/:orderId', restaurantAuthMiddleware, routeAdapter(makeUpdateOrderStatusController()))
+router.delete('/orders/:orderId', restaurantAuthMiddleware, routeAdapter(makeDeleteOrderController()))
 
 export default router

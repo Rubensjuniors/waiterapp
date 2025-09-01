@@ -7,7 +7,7 @@ export function routeAdapter(controller: IController) {
     const file = req.file
 
     const { statusCode, body } = await controller.handle({
-      body: req.body,
+      body: { ...req.body, ...req.params },
       file,
       headers: req.headers,
       cookies: req.cookies,
