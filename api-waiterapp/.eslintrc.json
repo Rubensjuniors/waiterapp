@@ -24,7 +24,7 @@
     "@typescript-eslint/ban-ts-comment": "warn",
     "@typescript-eslint/no-floating-promises": "off",
     "no-multiple-empty-lines": ["error", { "max": 1 }],
-    "max-len": ["error", { "code": 110, "ignoreUrls": true }],
+    "max-len": ["error", { "code": 130, "ignoreUrls": true }],
     "complexity": ["warn", { "max": 10 }],
     "prettier/prettier": ["error", { "singleQuote": true }],
     "no-console": "off",

@@ -7,6 +7,9 @@ import { makeLogoutController } from '@/app/controllers/Auth/LogoutController/ma
 import { makeRefreshController } from '@/app/controllers/Auth/RefreshTokenController/makeRefreshController'
 import { makeSignInController } from '@/app/controllers/Auth/SignInController/makeSignInController'
 import { makeSignUpController } from '@/app/controllers/Auth/SignUpController/makeSignUpController'
+import { makeCreateCategoryController } from '@/app/controllers/Category/CreateCategoryController/makeCreateCategoryController'
+import { makeDeleteCategoryController } from '@/app/controllers/Category/DeleteCategoryController/makeDeleteCategoryController'
+import { makeListCategoriesController } from '@/app/controllers/Category/ListCategoriesController/makeListCategoriesController'
 
 import { routeAdapter } from './routeAdapter'
 // import { orderUseCases } from './app/useCases/order'
@@ -31,11 +34,10 @@ router.post('/auth/signin', routeAdapter(makeSignInController()))
 router.patch('/auth/refresh', routeAdapter(makeRefreshController()))
 router.post('/auth/logout', routeAdapter(makeLogoutController()))
 
-// //list all categories
-// router.get('/categories', categoryUseCases.list)
-
-// //create category
-// router.post('/categories', categoryUseCases.create as RequestHandler)
+// Category routes
+router.get('/categories', routeAdapter(makeListCategoriesController()))
+router.post('/categories', routeAdapter(makeCreateCategoryController()))
+router.delete('/categories', routeAdapter(makeDeleteCategoryController()))
 
 // //list all products
 // router.get('/products', productUseCases.list)
@@ -60,8 +62,5 @@ router.post('/auth/logout', routeAdapter(makeLogoutController()))
 
 // // delete product
 // router.delete('/products/:productId', productUseCases.delete)
-
-// // delete category
-// router.delete('/categories/:categoryId', categoryUseCases.delete as RequestHandler)
 
 export default router
