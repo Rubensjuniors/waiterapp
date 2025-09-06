@@ -8,9 +8,9 @@ const deleteCategorySchema = z.object({
 })
 
 export class DeleteCategoryController implements IController {
-  async handle({ body }: IRequest): Promise<IResponse> {
+  async handle({ params }: IRequest): Promise<IResponse> {
     try {
-      const { categoryId } = deleteCategorySchema.parse(body)
+      const { categoryId } = deleteCategorySchema.parse(params)
 
       const categoryUseCase = makeCategoryUseCase()
 

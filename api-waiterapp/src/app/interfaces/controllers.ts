@@ -6,6 +6,8 @@ import { CookieOptions } from 'express'
 export interface IRequest {
   body: Record<string, any>
   headers: IncomingHttpHeaders
+  params: Record<string, any>
+  query: Record<string, any>
   accountId?: string | undefined
   file?: Express.Multer.File
   setCookie: (name: string, val: string, options?: CookieOptions) => void

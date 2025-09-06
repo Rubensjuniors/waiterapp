@@ -9,10 +9,9 @@ const paramsSchema = z.object({
 })
 
 export class DeleteProductController implements IController {
-  async handle(request: IRequest): Promise<IResponse> {
+  async handle({ params }: IRequest): Promise<IResponse> {
     try {
-      // Extract productId from request body
-      const { productId } = paramsSchema.parse({ productId: request.body.productId })
+      const { productId } = paramsSchema.parse({ params })
 
       const productUseCase = makeProductUseCase()
       await productUseCase.deleteProduct(productId)

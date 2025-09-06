@@ -45,7 +45,11 @@ router.post('/auth/logout', routeAdapter(makeLogoutController()))
 // Category routes
 router.get('/categories', routeAdapter(makeListCategoriesController()))
 router.post('/categories', restaurantAuthMiddleware, routeAdapter(makeCreateCategoryController()))
-router.delete('/categories', restaurantAuthMiddleware, routeAdapter(makeDeleteCategoryController()))
+router.delete(
+  '/categories/:categoryId',
+  restaurantAuthMiddleware,
+  routeAdapter(makeDeleteCategoryController()),
+)
 
 // Product routes
 router.get('/products', routeAdapter(makeListProductsController()))

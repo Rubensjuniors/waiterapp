@@ -5,15 +5,19 @@ import { IController, IRequest, IResponse } from '@/app/interfaces/controllers'
 import { OrderStatus } from '@/app/models/Order/types'
 import { makeOrderUseCase } from '@/app/useCases/OrderUseCase/makeOrder'
 
-const updateOrderStatusSchema = z.object({
+const paramsSchema = z.object({
   orderId: z.string().min(1, 'Order ID is required'),
-  status: z.nativeEnum(OrderStatus),
+})
+
+const bodySchema = z.object({
+  status: z.enum(OrderStatus),
 })
 
 export class UpdateOrderStatusController implements IController {
-  async handle({ body }: IRequest): Promise<IResponse> {
+  async handle({ params, body }: IRequest): Promise<IResponse> {
     try {
-      const { orderId, status } = updateOrderStatusSchema.parse(body)
+      const { orderId } = paramsSchema.parse(params)
+      const { status } = bodySchema.parse(body)
 
       const orderUseCase = makeOrderUseCase()
       const updatedOrder = await orderUseCase.updateOrderStatus({ id: orderId, status })
