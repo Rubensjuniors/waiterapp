@@ -65,7 +65,7 @@ router.delete('/products/:productId', restaurantAuthMiddleware, routeAdapter(mak
 // Order routes
 router.get('/orders', routeAdapter(makeListOrdersController()))
 router.post('/orders', routeAdapter(makeCreateOrderController()))
-router.patch('/orders/:orderId', restaurantAuthMiddleware, routeAdapter(makeUpdateOrderStatusController()))
-router.delete('/orders/:orderId', restaurantAuthMiddleware, routeAdapter(makeDeleteOrderController()))
+router.patch('/orders/:orderId', routeAdapter(makeUpdateOrderStatusController()))
+router.delete('/orders/:orderId', routeAdapter(makeDeleteOrderController()))
 
 export default router

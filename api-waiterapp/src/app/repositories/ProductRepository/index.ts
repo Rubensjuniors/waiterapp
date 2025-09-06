@@ -5,7 +5,7 @@ import { ICreateProduct, IProductRepository } from './types'
 
 export class ProductRepository implements IProductRepository {
   async list(): Promise<IProduct[]> {
-    const products = await Product.find().lean().populate('category')
+    const products = await Product.find().lean()
 
     return products.map((product) => ({
       id: product._id.toString(),
@@ -17,7 +17,7 @@ export class ProductRepository implements IProductRepository {
         name: ingredient.name || '',
         icon: ingredient.icon || '',
       })),
-      category: product.category.toString(),
+      category: product?.category.toString(),
     }))
   }
 
@@ -51,7 +51,7 @@ export class ProductRepository implements IProductRepository {
         name: ingredient.name || '',
         icon: ingredient.icon || '',
       })),
-      category: product.category.toString(),
+      category: product.category._id.toString(),
     }))
   }
 

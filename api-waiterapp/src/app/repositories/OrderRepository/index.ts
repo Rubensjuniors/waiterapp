@@ -20,7 +20,7 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async list(): Promise<IOrder[]> {
-    const orders = await Order.find().lean().populate('products.product')
+    const orders = await Order.find().lean()
 
     return orders.map((order) => ({
       id: order._id.toString(),
@@ -35,9 +35,7 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async updateStatus({ id, status }: IUpdateOrderStatus): Promise<IOrder | null> {
-    const updatedOrder = await Order.findByIdAndUpdate(id, { $set: { status } }, { new: true }).populate(
-      'products.product',
-    )
+    const updatedOrder = await Order.findByIdAndUpdate(id, { $set: { status } }, { new: true })
 
     if (!updatedOrder) {
       return null
@@ -48,9 +46,9 @@ export class OrderRepository implements IOrderRepository {
       table: updatedOrder.table,
       status: updatedOrder.status,
       createdAt: updatedOrder.createdAt,
-      products: updatedOrder.products.map((product) => ({
-        product: product.product.toString(),
-        quantity: product.quantity,
+      products: updatedOrder.products.map((item) => ({
+        product: item.product.toString(),
+        quantity: item.quantity,
       })),
     }
   }
