@@ -11,7 +11,7 @@ const paramsSchema = z.object({
 export class DeleteOrderController implements IController {
   async handle({ params }: IRequest): Promise<IResponse> {
     try {
-      const { orderId } = paramsSchema.parse({ params })
+      const { orderId } = paramsSchema.parse(params)
 
       const orderUseCase = makeOrderUseCase()
       await orderUseCase.deleteOrder(orderId)

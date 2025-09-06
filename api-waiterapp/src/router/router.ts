@@ -50,6 +50,7 @@ router.delete(
   restaurantAuthMiddleware,
   routeAdapter(makeDeleteCategoryController()),
 )
+router.get('/categories/:categoryId/products', routeAdapter(makeListProductsByCategoryController()))
 
 // Product routes
 router.get('/products', routeAdapter(makeListProductsController()))
@@ -59,7 +60,6 @@ router.post(
   restaurantAuthMiddleware,
   routeAdapter(makeCreateProductController()),
 )
-router.get('/categories/:categoryId/products', routeAdapter(makeListProductsByCategoryController()))
 router.delete('/products/:productId', restaurantAuthMiddleware, routeAdapter(makeDeleteProductController()))
 
 // Order routes

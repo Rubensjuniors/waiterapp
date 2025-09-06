@@ -10,8 +10,10 @@ const paramsSchema = z.object({
 
 export class ListProductsByCategoryController implements IController {
   async handle({ params }: IRequest): Promise<IResponse> {
+    console.log('ListProductsByCategoryController', { params })
     try {
-      const { categoryId } = paramsSchema.parse({ params })
+      const { categoryId } = paramsSchema.parse(params)
+      console.log({ categoryId })
 
       const productUseCase = makeProductUseCase()
       const products = await productUseCase.listProductsByCategory(categoryId)
