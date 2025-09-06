@@ -34,6 +34,25 @@ export class OrderRepository implements IOrderRepository {
     }))
   }
 
+  async findByTable(table: string): Promise<IOrder[] | null> {
+    const orders = await Order.find({ table }).lean()
+
+    if (!orders) {
+      return null
+    }
+
+    return orders.map((order) => ({
+      id: order._id.toString(),
+      table: order.table,
+      status: order.status,
+      createdAt: order.createdAt,
+      products: order.products.map((product) => ({
+        product: product.product.toString(),
+        quantity: product.quantity,
+      })),
+    }))
+  }
+
   async updateStatus({ id, status }: IUpdateOrderStatus): Promise<IOrder | null> {
     const updatedOrder = await Order.findByIdAndUpdate(id, { $set: { status } }, { new: true })
 

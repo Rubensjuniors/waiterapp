@@ -10,6 +10,7 @@ export interface IUpdateOrderStatus {
 export interface IOrderRepository {
   create(data: ICreateOrder): Promise<IOrder>
   list(): Promise<IOrder[]>
+  findByTable(table: string): Promise<IOrder[] | null>
   updateStatus({ id, status }: IUpdateOrderStatus): Promise<IOrder | null>
   delete(id: string): Promise<null>
 }

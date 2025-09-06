@@ -13,6 +13,7 @@ import { makeDeleteCategoryController } from '@/app/controllers/Category/DeleteC
 import { makeListCategoriesController } from '@/app/controllers/Category/ListCategoriesController/makeListCategoriesController'
 import { makeCreateOrderController } from '@/app/controllers/Order/CreateOrderController/makeCreateOrderController'
 import { makeDeleteOrderController } from '@/app/controllers/Order/DeleteOrderController/makeDeleteOrderController'
+import { makeListOrdersByTableController } from '@/app/controllers/Order/ListOrdersByTableController/makeListOrdersByTableController'
 import { makeListOrdersController } from '@/app/controllers/Order/ListOrdersController/makeListOrdersController'
 import { makeUpdateOrderStatusController } from '@/app/controllers/Order/UpdateOrderStatusController/makeUpdateOrderStatusController'
 import { makeCreateProductController } from '@/app/controllers/Product/CreateProductController/makeCreateProductController'
@@ -64,6 +65,7 @@ router.delete('/products/:productId', restaurantAuthMiddleware, routeAdapter(mak
 
 // Order routes
 router.get('/orders', routeAdapter(makeListOrdersController()))
+router.get('/orders/:table', routeAdapter(makeListOrdersByTableController()))
 router.post('/orders', routeAdapter(makeCreateOrderController()))
 router.patch('/orders/:orderId', routeAdapter(makeUpdateOrderStatusController()))
 router.delete('/orders/:orderId', routeAdapter(makeDeleteOrderController()))

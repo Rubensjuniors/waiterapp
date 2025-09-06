@@ -25,6 +25,10 @@ export class OrderUseCase {
     return await this.orderRepository.list()
   }
 
+  async listOrdersByTable(table: string) {
+    return await this.orderRepository.findByTable(table)
+  }
+
   async updateOrderStatus({ id, status }: UpdateOrderStatusUseCase) {
     const updatedOrder = await this.orderRepository.updateStatus({ id, status })
     return updatedOrder
