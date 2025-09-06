@@ -9,6 +9,7 @@
     "build": "tsup",
     "test": "vitest run",
     "test:watch": "vitest",
+    "docs": "echo 'Documentação disponível em http://localhost:4001/api-docs após executar npm run dev'",
     "docker:start": "docker start mongo",
     "docker:download": "docker run --name mongo -p 27017:27017 -d mongo",
     "docker:compose": "docker compose up -d",
@@ -25,6 +26,8 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^2.0.0",
     "@types/node": "^22.15.21",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
     "dotenv": "^17.2.1",
@@ -48,6 +51,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.1",
     "multer": "^2.0.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^4.1.4"
   }
 }
