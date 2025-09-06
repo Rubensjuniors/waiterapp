@@ -19,6 +19,10 @@ export function restaurantAuthMiddleware(req: AuthenticatedRequest, res: Respons
   try {
     const token = req.cookies?.accessToken
 
+    // Debug: Log cookies for troubleshooting
+    console.log('Available cookies:', Object.keys(req.cookies || {}))
+    console.log('AccessToken exists:', !!token)
+
     if (!token) {
       return res.status(401).json({
         message: 'Token de acesso não encontrado',
