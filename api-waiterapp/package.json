@@ -10,8 +10,6 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "docs": "echo 'Documentação disponível em http://localhost:4001/api-docs após executar npm run dev'",
-    "docker:start": "docker start mongo",
-    "docker:download": "docker run --name mongo -p 27017:27017 -d mongo",
     "docker:compose": "docker compose up -d",
     "create-super-admin": "tsx src/scripts/createSuperAdmin.ts"
   },
