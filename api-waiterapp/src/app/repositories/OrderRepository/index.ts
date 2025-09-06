@@ -20,7 +20,7 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async list(): Promise<IOrder[]> {
-    const orders = await Order.find().populate('products.product')
+    const orders = await Order.find().lean().populate('products.product')
 
     return orders.map((order) => ({
       id: order._id.toString(),

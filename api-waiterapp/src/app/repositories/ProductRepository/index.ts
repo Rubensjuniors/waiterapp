@@ -5,7 +5,7 @@ import { ICreateProduct, IProductRepository } from './types'
 
 export class ProductRepository implements IProductRepository {
   async list(): Promise<IProduct[]> {
-    const products = await Product.find().populate('category')
+    const products = await Product.find().lean().populate('category')
 
     return products.map((product) => ({
       id: product._id.toString(),

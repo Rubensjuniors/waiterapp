@@ -15,11 +15,12 @@ export class CategoryRepository implements ICategoryRepository {
   }
 
   async list(): Promise<ICategory[]> {
-    const categories = await Category.find()
+    const categories = await Category.find({}).lean()
 
     return categories.map((category) => ({
-      id: category._id,
-      ...category,
+      id: category._id.toString(),
+      name: category.name,
+      icon: category.icon,
     }))
   }
 

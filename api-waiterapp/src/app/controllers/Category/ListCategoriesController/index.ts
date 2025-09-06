@@ -8,6 +8,8 @@ export class ListCategoriesController implements IController {
 
       const categories = await categoryUseCase.listCategories()
 
+      console.log({ categories })
+
       return {
         statusCode: 200,
         body: {
