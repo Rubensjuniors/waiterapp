@@ -1,17 +1,17 @@
 import { IController, IRequest, IResponse } from '@/app/interfaces/controllers'
 
 export class LogoutController implements IController {
-  async handle(request: IRequest): Promise<IResponse> {
-    request.setCookie('token', '', {
+  async handle({ setCookie }: IRequest): Promise<IResponse> {
+    setCookie('accessToken', '', {
       maxAge: 0,
       path: '/',
     })
-    request.setCookie('refreshToken', '', {
+    setCookie('refreshToken', '', {
       maxAge: 0,
       path: '/',
     })
     return {
-      statusCode: 201,
+      statusCode: 200,
       body: {
         message: 'Logout successful',
       },
