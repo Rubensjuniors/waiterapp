@@ -1,3 +1,12 @@
+import { useTranslation } from 'react-i18next'
+
 export function App() {
-  return <h1 className="text-5xl text-red-500">ola</h1>
+  const { t } = useTranslation()
+
+  return (
+    <div>
+      <h1>{t('bemVindo')}</h1>
+      <p>{t('descricao')}</p>
+    </div>
+  )
 }
