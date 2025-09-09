@@ -4,7 +4,7 @@ import './lib/i18n.ts'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { App } from './App/index.tsx'
+import { App } from './app/index.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
