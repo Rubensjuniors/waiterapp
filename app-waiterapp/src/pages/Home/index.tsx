@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-export function App() {
+export default function Home() {
   const { t } = useTranslation()
 
   return (
