@@ -1,4 +1,5 @@
 {
-  "bemVindo": "Bem-vindo",
-  "descricao": "Este é um exemplo de internacionalização"
+  "auth": {
+    "title": "Bem-vindo(a) ao"
+  }
 }

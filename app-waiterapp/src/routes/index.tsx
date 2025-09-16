@@ -7,7 +7,8 @@ const AuthLayout = lazy(() => import('../shared/components/layouts/Auth'))
 const StructorLayout = lazy(() => import('../shared/components/layouts/Structor'))
 
 const Home = lazy(() => import('../pages/Home'))
-const SingIn = lazy(() => import('../pages/Auth/SignIn'))
+const SignIn = lazy(() => import('../pages/Auth/SignIn'))
+const SignUp = lazy(() => import('../pages/Auth/SignUp'))
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
@@ -19,11 +20,12 @@ const authLayout = createLayoutRoute('auth-layout', AuthLayout, rootRoute)
 const structorLayout = createLayoutRoute('structor-layout', StructorLayout, rootRoute)
 
 // ===== PAGES =====
+const signInRoute = createPageRoute('/sign-in', SignIn, authLayout)
+const signUpRoute = createPageRoute('/sign-up', SignUp, authLayout)
 const indexRoute = createPageRoute('/', Home, structorLayout)
-const signInRoute = createPageRoute('/sign-in', SingIn, authLayout)
 
 const routeTree = rootRoute.addChildren([
-  authLayout.addChildren([signInRoute]),
+  authLayout.addChildren([signInRoute, signUpRoute]),
   structorLayout.addChildren([indexRoute]),
 ])
 
