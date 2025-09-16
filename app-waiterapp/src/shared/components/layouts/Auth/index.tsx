@@ -1,6 +1,6 @@
 import { Outlet } from '@tanstack/react-router'
 
-import { Welcome } from './components/Welcome'
+import { Welcome } from '@/features/AuthLayout/components/Welcome'
 
 export default function AuthLayout() {
   return (
