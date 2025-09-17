@@ -8,10 +8,21 @@ export const createLayoutRoute = (id: string, component: any, parentRoute: any) 
   })
 }
 
-export const createPageRoute = (path: string, component: any, layoutRoute: any) => {
-  return createRoute({
+export const createPageRoute = (
+  path: string,
+  component: any,
+  layoutRoute: any,
+  validateSearch?: (search: Record<string, unknown>) => any,
+) => {
+  const routeConfig: any = {
     getParentRoute: () => layoutRoute,
     path,
     component,
-  })
+  }
+
+  if (validateSearch) {
+    routeConfig.validateSearch = validateSearch
+  }
+
+  return createRoute(routeConfig)
 }
