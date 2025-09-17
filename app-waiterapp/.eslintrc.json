@@ -12,15 +12,17 @@
       "ecmaVersion": "latest",
       "sourceType": "module"
     },
-    "plugins": ["react", "@typescript-eslint", "simple-import-sort"],
+    "plugins": ["react", "@typescript-eslint", "simple-import-sort", "@tanstack/query"],
     "extends": [
       "eslint:recommended",
       "plugin:react/recommended",
       "plugin:@typescript-eslint/recommended",
       "plugin:react-hooks/recommended",
-      "prettier"
+      "prettier",
+      "plugin:@tanstack/query/recommended"
     ],
     "rules": {
+      "@tanstack/query/exhaustive-deps": "error",
       "simple-import-sort/imports": "error",
       "quotes": ["error", "single"],
       "semi": ["error", "never"],

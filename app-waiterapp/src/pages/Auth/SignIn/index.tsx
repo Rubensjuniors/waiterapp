@@ -1,18 +1,20 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link, useNavigate, useSearch } from '@tanstack/react-router'
+import { useNavigate, useSearch } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import z from 'zod'
 
 import { Button, FormMenssage, Input, Label } from '@/shared/components/Atoms'
 
 const signInForm = z.object({
-  email: z.email('E-mail inválido.'),
-  password: z.string().min(8, 'Precisa ter no mínimo 8 caracteres.'),
+  email: z.email('EMAIL_01'),
+  password: z.string().min(8, 'PASSWORD_01'),
 })
 
 type SignInForm = z.infer<typeof signInForm>
 
 export default function SignIn() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { email } = useSearch({
     strict: false,
@@ -46,27 +48,27 @@ export default function SignIn() {
     <div>
       <form className="space-y-4 w-full" onSubmit={handleSubmit(handleSignIn)}>
         <div className="space-y-2">
-          <Label htmlFor="email">E-mail</Label>
+          <Label htmlFor="email">{t('auth.sign.email.label')}</Label>
           <Input
             className="py-6"
             id="email"
             type="email"
             {...register('email')}
-            placeholder="Digite seu e-mail"
+            placeholder={t('auth.sign.email.placeholder')}
           />
-          {errors.email && <FormMenssage>{errors.email?.message}</FormMenssage>}
+          {errors.email && <FormMenssage>{t(`errors.${errors.email?.message}`)}</FormMenssage>}
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password">Senha</Label>
+          <Label htmlFor="password">{t('auth.sign.password.label')}</Label>
           <Input
             className="py-6"
             id="password"
             type="password"
             {...register('password')}
-            placeholder="Digite sua senha"
+            placeholder={t('auth.sign.password.placeholder')}
           />
-          {errors.password && <FormMenssage>{errors.password?.message}</FormMenssage>}
+          {errors.password && <FormMenssage>{t(`errors.${errors.email?.message}`)}</FormMenssage>}
         </div>
 
         <Button
@@ -75,12 +77,9 @@ export default function SignIn() {
           className="w-full rounded-full"
           type="submit"
         >
-          Entrar
+          {t('auth.sign.in')}
         </Button>
       </form>
-      <Button variant="ghost" className="w-full rounded-full mt-4">
-        <Link to="/sign-up">Criar conta</Link>
-      </Button>
     </div>
   )
 }

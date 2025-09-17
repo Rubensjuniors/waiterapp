@@ -2,16 +2,16 @@ import { createRootRoute, createRouter, Outlet } from '@tanstack/react-router'
 import { lazy } from 'react'
 
 import { createLayoutRoute, createPageRoute } from './helpers'
+import { Providers } from './providers'
 
 const AuthLayout = lazy(() => import('../shared/components/layouts/Auth'))
 const StructorLayout = lazy(() => import('../shared/components/layouts/Structor'))
 
 const Home = lazy(() => import('../pages/Home'))
 const SignIn = lazy(() => import('../pages/Auth/SignIn'))
-const SignUp = lazy(() => import('../pages/Auth/SignUp'))
 
 const rootRoute = createRootRoute({
-  component: () => <Outlet />,
+  component: () => <Providers><Outlet /></Providers>,
   notFoundComponent: () => <div>Not Found 404</div>,
 })
 
@@ -21,11 +21,10 @@ const structorLayout = createLayoutRoute('structor-layout', StructorLayout, root
 
 // ===== PAGES =====
 const signInRoute = createPageRoute('/sign-in', SignIn, authLayout)
-const signUpRoute = createPageRoute('/sign-up', SignUp, authLayout)
 const indexRoute = createPageRoute('/', Home, structorLayout)
 
 const routeTree = rootRoute.addChildren([
-  authLayout.addChildren([signInRoute, signUpRoute]),
+  authLayout.addChildren([signInRoute]),
   structorLayout.addChildren([indexRoute]),
 ])
 
