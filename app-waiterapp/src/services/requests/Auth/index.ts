@@ -6,8 +6,10 @@ type SignInData = {
 }
 
 class AuthenticateServices {
-  async signIn(data: SignInData) {
-    return await apiClient.post('/auth/signin', data)
+  async signIn(body: SignInData) {
+    const { data } = await apiClient.post('/auth/signin', body)
+
+    return data
   }
   async refreshToken() {
     return await apiClient.patch('/auth/refresh')

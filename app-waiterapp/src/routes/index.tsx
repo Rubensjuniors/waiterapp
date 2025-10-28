@@ -1,35 +1,46 @@
-import { createRootRoute, createRouter, Outlet } from '@tanstack/react-router'
+import { createRootRoute, createRoute, createRouter, Outlet } from '@tanstack/react-router'
 import { lazy } from 'react'
 
-import { createLayoutRoute, createPageRoute } from './helpers'
-import { Providers } from './providers'
+const AuthLayout = lazy(() => import('../layouts/Auth'))
+const StructorLayout = lazy(() => import('../layouts/Structor'))
 
-const AuthLayout = lazy(() => import('../shared/components/layouts/Auth'))
-const StructorLayout = lazy(() => import('../shared/components/layouts/Structor'))
-
-const Home = lazy(() => import('../pages/Home'))
 const SignIn = lazy(() => import('../pages/Auth/SignIn'))
+const Home = lazy(() => import('../pages/Home'))
 
 const rootRoute = createRootRoute({
-  component: () => (
-    <Providers>
-      <Outlet />
-    </Providers>
-  ),
+  component: () => <Outlet />,
   notFoundComponent: () => <div>Not Found 404</div>,
 })
 
 // ===== LAYOUTS =====
-const authLayout = createLayoutRoute('auth-layout', AuthLayout, rootRoute)
-const structorLayout = createLayoutRoute('structor-layout', StructorLayout, rootRoute)
+const authLayout = createRoute({
+  getParentRoute: () => rootRoute,
+  id: 'auth-layout',
+  component: AuthLayout,
+})
+
+const structorLayout = createRoute({
+  getParentRoute: () => rootRoute,
+  id: 'structor-layout',
+  component: StructorLayout,
+})
 
 // ===== PAGES =====
-const signInRoute = createPageRoute('/sign-in', SignIn, authLayout)
-const indexRoute = createPageRoute('/', Home, structorLayout)
+const signInRoute = createRoute({
+  getParentRoute: () => authLayout,
+  path: '/sign-in',
+  component: SignIn,
+})
+
+const home = createRoute({
+  getParentRoute: () => structorLayout,
+  path: '/',
+  component: Home,
+})
 
 const routeTree = rootRoute.addChildren([
   authLayout.addChildren([signInRoute]),
-  structorLayout.addChildren([indexRoute]),
+  structorLayout.addChildren([home]),
 ])
 
 export const router = createRouter({

@@ -1,6 +1,6 @@
-import axios, { type CreateAxiosDefaults } from 'axios'
+import axios from 'axios'
 
-const axiosConfig: CreateAxiosDefaults = {
+const axiosConfig = {
   baseURL: 'http://localhost:4001',
   timeout: 10000,
   withCredentials: true,
@@ -23,7 +23,7 @@ apiClient.interceptors.response.use(
         return Promise.reject(new Error('Sessão expirada'))
       }
 
-      if (originalRequest.url === '/auth/login') {
+      if (originalRequest.url === '/auth/signin') {
         return Promise.reject(new Error('Sessão expirada'))
       }
 

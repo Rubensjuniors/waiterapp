@@ -10,20 +10,26 @@ interface AuthContextType {
   signOut: () => Promise<void>
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
-
 interface AuthProviderProps {
   children: ReactNode
 }
 
-const accessToken = 'accessToken'
-const refreshToken = 'refreshToken'
+const AuthContext = createContext<AuthContextType | undefined>(undefined)
+
+const KEY_ACCESS_TOKEN = 'token'
+const KEY_REFRESH_TOKEN = 'refreshToken'
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    const cookieToken = Cookies.get(accessToken)
+    const cookieToken = Cookies.get(KEY_ACCESS_TOKEN)
+
     return cookieToken ? Boolean(cookieToken) : false
   })
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [isAuthenticated])
 
   const { mutateAsync: signInMutation } = useSignIn()
   const { mutateAsync: logoutMutation } = useLogout()
@@ -31,7 +37,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const signIn = useCallback(
     async (email: string, password: string) => {
       try {
-        await signInMutation({ email, password })
+        const data = await signInMutation({ email, password })
+        Cookies.set(KEY_ACCESS_TOKEN, data?.data?.accessToken)
         setIsAuthenticated(true)
       } catch (error) {
         console.error('Erro ao fazer login:', error)
@@ -45,8 +52,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       await logoutMutation()
       Cookies.remove('auth')
-      Cookies.remove(refreshToken)
-      Cookies.remove(accessToken)
+      Cookies.remove(KEY_REFRESH_TOKEN)
+      Cookies.remove(KEY_ACCESS_TOKEN)
       setIsAuthenticated(false)
     } catch (error) {
       console.error('Erro ao fazer logout:', error)
@@ -54,9 +61,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  useEffect(() => {
-    console.log({ isAuthenticated })
-  }, [isAuthenticated])
+  if (isLoading) {
+    return null
+  }
 
   return (
     <AuthContext.Provider

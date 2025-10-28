@@ -1,10 +1,16 @@
-import { Outlet } from '@tanstack/react-router'
+import { Navigate, Outlet } from '@tanstack/react-router'
 
-import { ProtectedRoute } from '@/routes/protectedRoute'
+import { useAuthContext } from '@/shared/contexts/AuthContext'
 
 export default function StructorLayout() {
+  const { isAuthenticated } = useAuthContext()
+
+  if (!isAuthenticated) {
+    return <Navigate to="/sign-in" />
+  }
+
   return (
-    <ProtectedRoute>
+    <>
       <div className="structor-layout">
         <div className="auth-container">
           <div className="auth-logo">
@@ -16,6 +22,6 @@ export default function StructorLayout() {
           </div>
         </div>
       </div>
-    </ProtectedRoute>
+    </>
   )
 }
