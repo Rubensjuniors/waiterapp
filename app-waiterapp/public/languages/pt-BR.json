@@ -16,6 +16,7 @@
   },
   "errors": {
     "EMAIL_01": "E-mail inválido",
-    "PASSWORD_01": "A senha deve ter no mínimo 6 caracteres"
+    "PASSWORD_01": "A senha deve ter no mínimo 6 caracteres",
+    "INVALID_PASSWORD_02": "Senha inválida"
   }
 }

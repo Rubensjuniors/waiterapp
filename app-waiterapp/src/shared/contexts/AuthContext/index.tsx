@@ -8,6 +8,7 @@ interface AuthContextType {
   isAuthenticated: boolean
   signIn: (email: string, password: string) => Promise<void>
   signOut: () => Promise<void>
+  signInError: Error | null
 }
 
 interface AuthProviderProps {
@@ -31,7 +32,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setIsLoading(false)
   }, [isAuthenticated])
 
-  const { mutateAsync: signInMutation } = useSignIn()
+  const { mutateAsync: signInMutation, error: signInError  } = useSignIn()
   const { mutateAsync: logoutMutation } = useLogout()
 
   const signIn = useCallback(
@@ -71,6 +72,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         isAuthenticated,
         signIn,
         signOut,
+        signInError
       }}
     >
       {children}

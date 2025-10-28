@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import z from 'zod'
 
+import { cn } from '@/lib/utils'
 import { Button, FormMenssage, Input, Label } from '@/shared/components/Atoms'
 import { useAuthContext } from '@/shared/contexts/AuthContext'
 
@@ -16,7 +17,7 @@ type SignInForm = z.infer<typeof signInForm>
 
 export default function SignIn() {
   const { t } = useTranslation()
-  const { signIn } = useAuthContext()
+  const { signIn, signInError } = useAuthContext()
   const navigate = useNavigate()
 
   const {
@@ -27,7 +28,7 @@ export default function SignIn() {
   } = useForm<SignInForm>({
     resolver: zodResolver(signInForm),
     defaultValues: {
-      // email,
+      email: '',
       password: '',
     },
   })
@@ -43,7 +44,6 @@ export default function SignIn() {
       console.error(error)
     }
   }
-
 
   return (
     <div>
@@ -63,13 +63,16 @@ export default function SignIn() {
         <div className="space-y-2">
           <Label htmlFor="password">{t('auth.sign.password.label')}</Label>
           <Input
-            className="py-6"
+            className={cn('py-6', {
+              'border-red-500': signInError,
+            })}
             id="password"
             type="password"
-            {...register('password')}
             placeholder={t('auth.sign.password.placeholder')}
+            {...register('password')}
           />
-          {errors.password && <FormMenssage>{t(`errors.${errors.email?.message}`)}</FormMenssage>}
+          {errors.password && !signInError && <FormMenssage>{t(`errors.${errors.email?.message}`)}</FormMenssage>}
+          {signInError && <FormMenssage>{t('errors.INVALID_PASSWORD_02')}</FormMenssage>}
         </div>
 
         <Button
