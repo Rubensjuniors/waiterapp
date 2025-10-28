@@ -11,7 +11,11 @@ const Home = lazy(() => import('../pages/Home'))
 const SignIn = lazy(() => import('../pages/Auth/SignIn'))
 
 const rootRoute = createRootRoute({
-  component: () => <Providers><Outlet /></Providers>,
+  component: () => (
+    <Providers>
+      <Outlet />
+    </Providers>
+  ),
   notFoundComponent: () => <div>Not Found 404</div>,
 })
 

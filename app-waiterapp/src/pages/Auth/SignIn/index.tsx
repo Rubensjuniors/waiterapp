@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import z from 'zod'
 
 import { Button, FormMenssage, Input, Label } from '@/shared/components/Atoms'
+import { useAuthContext } from '@/shared/contexts/AuthContext'
 
 const signInForm = z.object({
   email: z.email('EMAIL_01'),
@@ -15,6 +16,7 @@ type SignInForm = z.infer<typeof signInForm>
 
 export default function SignIn() {
   const { t } = useTranslation()
+  const { signIn } = useAuthContext()
   const navigate = useNavigate()
   const { email } = useSearch({
     strict: false,
@@ -36,7 +38,7 @@ export default function SignIn() {
   async function handleSignIn(data: SignInForm) {
     const { email, password } = data
     try {
-      console.log('handleSignIn', { email, password })
+      await signIn(email, password)
 
       navigate({ to: '/' })
       reset()
@@ -44,6 +46,8 @@ export default function SignIn() {
       console.error(error)
     }
   }
+
+
   return (
     <div>
       <form className="space-y-4 w-full" onSubmit={handleSubmit(handleSignIn)}>
