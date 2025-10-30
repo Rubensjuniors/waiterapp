@@ -6,6 +6,8 @@ const StructorLayout = lazy(() => import('../layouts/Structor'))
 
 const SignIn = lazy(() => import('../pages/Auth/SignIn'))
 const Home = lazy(() => import('../pages/Home'))
+const History = lazy(() => import('../pages/History'))
+const Menu = lazy(() => import('../pages/Menu'))
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
@@ -38,9 +40,27 @@ const home = createRoute({
   component: Home,
 })
 
+const history = createRoute({
+  getParentRoute: () => structorLayout,
+  path: '/historico',
+  component: History,
+})
+
+const menu = createRoute({
+  getParentRoute: () => structorLayout,
+  path: '/cardapio',
+  component: Menu,
+})
+
+const user = createRoute({
+  getParentRoute: () => structorLayout,
+  path: '/usuarios',
+  component: Home,
+})
+
 const routeTree = rootRoute.addChildren([
   authLayout.addChildren([signInRoute]),
-  structorLayout.addChildren([home]),
+  structorLayout.addChildren([home, history, menu, user]),
 ])
 
 export const router = createRouter({

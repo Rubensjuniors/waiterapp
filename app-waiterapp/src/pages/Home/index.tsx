@@ -1,12 +1,16 @@
-import { useTranslation } from 'react-i18next'
+import { House } from 'lucide-react'
+
+import { PageHeader } from '@/features/Structor/components/PageHeader'
 
 export default function Home() {
-  const { t } = useTranslation()
-
   return (
     <div>
-      <h1>{t('bemVindo')}</h1>
-      <p>{t('descricao')}</p>
+      <PageHeader
+        icon={<House />}
+        title="Home"
+        description="Acompanhe os pedidos dos clientes"
+        button={<>Button</>}
+      />
     </div>
   )
 }
